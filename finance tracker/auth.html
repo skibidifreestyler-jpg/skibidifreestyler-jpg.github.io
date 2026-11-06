@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinance | Authentication</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+
+    <main class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>Vinance.</h1>
+            <p class="auth-subtitle">Your finances, under control.</p>
+
+            <div class="auth-tabs">
+                <button type="button" id="loginTab" class="selected">Log In</button>
+                <button type="button" id="signupTab">Sign Up</button>
+            </div>
+
+            <form id="authForm">
+
+                <div id="usernameGroup" class="hidden">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Your username" autocomplete="username">
+                </div>
+
+                <label for="email">Email address</label>
+                <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="At least 6 characters"
+                       autocomplete="current-password" minlength="6" required>
+
+                <button type="button" id="forgotPassword" class="link-button">Forgot password?</button>
+
+                <button type="submit" id="authSubmit">Log In</button>
+
+                <p id="authMessage" role="alert"></p>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="auth.js"></script>
+
+</body>
+</html>

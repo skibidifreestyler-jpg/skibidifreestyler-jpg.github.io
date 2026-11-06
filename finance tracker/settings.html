@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Vinance</title>
+
+    <script>
+        try {
+            var t = localStorage.getItem("vinance-theme");
+            if (t) document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">Vinance.</div>
+
+        <nav class="navigation">
+            <a href="index.html#overview">Overview</a>
+            <a href="index.html#transactions">Transactions</a>
+            <a href="index.html#analytics">Analytics</a>
+            <a href="index.html#budget">Budgets</a>
+            <a href="index.html?accounts">Accounts</a>
+            <a href="settings.html" class="active">Settings</a>
+        </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="dashboard">
+
+        <header class="hero hero-small">
+
+            <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+
+            <div class="hero-actions">
+                <button class="icon-button" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+                <div class="profile-area">
+                    <button id="profileButton" class="profile-button" aria-label="Open profile menu">
+                        <span id="profileAvatar">V</span>
+                    </button>
+
+                    <div id="profileDropdown" class="profile-dropdown hidden">
+                        <div class="profile-info">
+                            <strong id="profileName">Victor</strong>
+                            <span id="profileEmail">Loading...</span>
+                        </div>
+                        <hr>
+                        <a href="settings.html" class="menu-link">⚙ Settings</a>
+                        <button id="logoutButton" class="logout-button">Log out</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="welcome">
+                <h1>Settings</h1>
+                <p>Manage your profile, categories and security.</p>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="settings-grid">
+
+                <!-- PROFILE -->
+                <div class="panel">
+                    <div class="panel-header"><h2>Profile &amp; preferences</h2></div>
+
+                    <form id="profileForm" class="settings-form">
+                        <div class="field">
+                            <label for="settingsUsername">Username</label>
+                            <input type="text" id="settingsUsername" maxlength="30" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="settingsEmail">Email</label>
+                            <input type="email" id="settingsEmail" readonly>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field">
+                                <label for="settingsCurrency">Currency</label>
+                                <select id="settingsCurrency">
+                                    <option value="EUR">EUR (€)</option>
+                                    <option value="RON">RON (lei)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="GBP">GBP (£)</option>
+                                </select>
+                            </div>
+
+                            <div class="field">
+                                <label for="settingsIncome">Monthly income</label>
+                                <input type="number" id="settingsIncome" min="0" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <p class="hint">Changing the currency only changes how amounts are displayed. It does not convert them.</p>
+
+                        <button type="submit" class="btn btn-primary" id="saveProfile">Save changes</button>
+                        <p id="profileMessage" class="form-message" role="status"></p>
+                    </form>
+                </div>
+
+                <!-- SECURITY -->
+                <div class="panel">
+                    <div class="panel-header"><h2>Change password</h2></div>
+
+                    <form id="passwordForm" class="settings-form">
+                        <div class="field">
+                            <label for="currentPassword">Current password</label>
+                            <input type="password" id="currentPassword" autocomplete="current-password" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="newPassword">New password</label>
+                            <input type="password" id="newPassword" autocomplete="new-password" minlength="6" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="confirmPassword">Confirm new password</label>
+                            <input type="password" id="confirmPassword" autocomplete="new-password" minlength="6" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="savePassword">Update password</button>
+                        <p id="passwordMessage" class="form-message" role="status"></p>
+                    </form>
+                </div>
+
+                <!-- CATEGORIES -->
+                <div class="panel span-2">
+                    <div class="panel-header">
+                        <h2>Categories</h2>
+                        <button type="button" class="btn btn-ghost btn-small" id="restoreDefaults">Restore defaults</button>
+                    </div>
+
+                    <h3 class="subhead">Expense categories</h3>
+                    <div class="cat-list" id="expenseCategories"></div>
+
+                    <h3 class="subhead">Income categories</h3>
+                    <div class="cat-list" id="incomeCategories"></div>
+
+                    <h3 class="subhead">Add a category</h3>
+
+                    <form id="categoryForm" class="settings-form category-form">
+                        <div class="field">
+                            <label for="categoryName">Name</label>
+                            <input type="text" id="categoryName" maxlength="30" placeholder="e.g. Pets" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="categoryIcon">Emoji</label>
+                            <input type="text" id="categoryIcon" maxlength="8" placeholder="🐶">
+                        </div>
+
+                        <div class="field">
+                            <label for="categoryColor">Color</label>
+                            <input type="color" id="categoryColor" value="#477fe9">
+                        </div>
+
+                        <div class="field">
+                            <label for="categoryType">Type</label>
+                            <select id="categoryType">
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="addCategory">Add</button>
+                    </form>
+
+                    <p id="categoryMessage" class="form-message" role="status"></p>
+                    <p class="hint">Deleting a category does not change existing transactions; they keep the name.</p>
+                </div>
+
+                <!-- DANGER ZONE -->
+                <div class="panel span-2 danger-zone">
+                    <div class="panel-header"><h2>Delete account</h2></div>
+                    <p class="hint">Permanently deletes your account, bank accounts, transactions and categories. This cannot be undone.</p>
+                    <button type="button" class="btn btn-danger" id="deleteAccountButton">Delete my account</button>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+
+    <dialog id="deleteDialog">
+        <h2>Delete account?</h2>
+        <p class="dialog-sub">Enter your password to permanently delete all your Vinance data.</p>
+
+        <form id="deleteForm">
+            <div class="field">
+                <label for="deletePassword">Password</label>
+                <input type="password" id="deletePassword" autocomplete="current-password" required>
+            </div>
+
+            <p id="deleteMessage" class="form-message" role="alert"></p>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-ghost" id="closeDelete">Cancel</button>
+                <button type="submit" class="btn btn-danger" id="confirmDelete">Delete everything</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script type="module" src="settings.js"></script>
+</body>
+</html>

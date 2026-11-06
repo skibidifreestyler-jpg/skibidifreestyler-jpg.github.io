@@ -1,0 +1,218 @@
+
+.onboarding-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.onboarding-container {
+    width: 100%;
+    max-width: 720px;
+}
+
+.onboarding-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 35px;
+}
+
+.onboarding-header .logo {
+    color: #3165e8;
+    font-weight: 800;
+    font-size: 23px;
+}
+
+#stepLabel {
+    color: #777;
+    font-size: 13px;
+}
+
+.onboarding-card {
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.onboarding-card h1 {
+    color: #202b40;
+    font-size: 28px;
+    margin: 0 0 10px;
+}
+
+.onboarding-subtitle {
+    color: #7c8494;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.onboarding-field {
+    margin-bottom: 28px;
+}
+
+.onboarding-field > label {
+    display: block;
+    font-weight: 700;
+    color: #27334a;
+    margin-bottom: 12px;
+}
+
+.onboarding-field p,
+.onboarding-field small {
+    color: #858d9c;
+    font-size: 13px;
+}
+
+.income-input {
+    display: flex;
+    gap: 10px;
+}
+
+.income-input input,
+.income-input select {
+    padding: 13px;
+    border: 1px solid #e1e5ed;
+    border-radius: 9px;
+    font: inherit;
+}
+
+.income-input input {
+    flex: 1;
+    min-width: 0;
+}
+
+.income-input select {
+    background: white;
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px;
+    border: 1px solid #e5e9f0;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #39445a;
+    transition: 0.2s;
+}
+
+.choice:has(input:checked) {
+    border-color: #477fe9;
+    background: #eff4ff;
+}
+
+.choice input {
+    accent-color: #477fe9;
+}
+
+.onboarding-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 35px;
+}
+
+.onboarding-actions button {
+    border: none;
+    border-radius: 9px;
+    padding: 13px 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#skipOnboarding {
+    color: #70798a;
+    background: transparent;
+}
+
+#finishOnboarding {
+    color: white;
+    background: #477fe9;
+}
+
+#finishOnboarding:hover {
+    background: #3165d5;
+}
+
+#onboardingMessage {
+    color: #d64545;
+    font-size: 13px;
+}
+
+@media (max-width: 550px) {
+    .onboarding-card {
+        padding: 23px;
+    }
+
+    .onboarding-card h1 {
+        font-size: 23px;
+    }
+
+    .choice-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .income-input {
+        flex-direction: column;
+    }
+}
+.account-card {
+    background: #f8faff;
+    border: 1px solid #e3e9f5;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.account-card h3 {
+    margin: 0 0 15px;
+    color: #27334a;
+    font-size: 17px;
+}
+
+.account-card label {
+    display: block;
+    color: #39445a;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.account-card input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #e1e5ed;
+    border-radius: 9px;
+    font: inherit;
+    margin-bottom: 15px;
+}
+
+.account-card input:focus {
+    outline: 2px solid #477fe9;
+    border-color: transparent;
+}
+#accountsContainer {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+
+
+
+#accountsContainer {
+    display: grid;
+    gap: 16px;
+    margin-top: 16px;
+}

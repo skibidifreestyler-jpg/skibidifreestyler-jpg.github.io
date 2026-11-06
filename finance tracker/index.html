@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinance</title>
+
+    <script>
+        try {
+            var t = localStorage.getItem("vinance-theme");
+            if (t) document.documentElement.setAttribute("data-theme", t);
+        } catch (e) { }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">Vinance.</div>
+
+        <nav class="navigation">
+            <a href="#overview" class="active">Overview</a>
+            <a href="#transactions">Transactions</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#budget">Budgets</a>
+            <a href="#" id="openAccounts">Accounts</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <main class="dashboard">
+
+        <!-- HERO -->
+        <header class="hero" id="overview">
+
+            <button class="icon-button menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+
+            <div class="hero-actions">
+                <button class="icon-button" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+                <div class="profile-area">
+                    <button id="profileButton" class="profile-button" aria-label="Open profile menu">
+                        <span id="profileAvatar">V</span>
+                    </button>
+
+                    <div id="profileDropdown" class="profile-dropdown hidden">
+                        <div class="profile-info">
+                            <strong id="profileName">Victor</strong>
+                            <span id="profileEmail">Loading...</span>
+                        </div>
+                        <hr>
+                        <a href="settings.html" class="menu-link">⚙ Settings</a>
+                        <button id="logoutButton" class="logout-button">Log out</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="welcome">
+                <h1 id="welcomeTitle">Welcome back! 👋</h1>
+                <p>Here's how your money is doing.</p>
+            </div>
+
+            <div class="filters">
+                <select id="accountFilter" aria-label="Filter by account">
+                    <option value="all">All accounts</option>
+                </select>
+
+                <select id="periodFilter" aria-label="Filter by period">
+                    <option value="7d">Last 7 days</option>
+                    <option value="30d">Last 30 days</option>
+                    <option value="month">This month</option>
+                    <option value="all">All time</option>
+                </select>
+            </div>
+        </header>
+
+
+        <div class="content">
+
+            <!-- STATS -->
+            <section class="grid-3">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Remaining</h2>
+                        <div class="stat-icon blue">◈</div>
+                    </div>
+                    <p class="date" id="remainingNote">Across all accounts</p>
+                    <h1 class="amount" id="remainingAmount">€0.00</h1>
+                    <span class="note">Current balance</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Income</h2>
+                        <div class="stat-icon green">↗</div>
+                    </div>
+                    <p class="date period-label">–</p>
+                    <h1 class="amount" id="incomeAmount">€0.00</h1>
+                    <span class="note" id="incomeDelta">–</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Expenses</h2>
+                        <div class="stat-icon pink">↘</div>
+                    </div>
+                    <p class="date period-label">–</p>
+                    <h1 class="amount" id="expensesAmount">€0.00</h1>
+                    <span class="note" id="expensesDelta">–</span>
+                </div>
+
+            </section>
+
+
+            <!-- INSIGHTS -->
+            <section class="grid-3" id="budget">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Monthly budget</h2>
+                        <div class="stat-icon amber">◎</div>
+                    </div>
+                    <p class="date" id="budgetText">No budget set</p>
+                    <h1 class="amount" id="budgetAmount">–</h1>
+                    <div class="progress" id="budgetProgress"><span id="budgetBar"></span></div>
+                    <span class="note" id="budgetNote">Set a monthly limit to track your spending.</span>
+                    <button class="btn btn-ghost btn-small" id="budgetButton" type="button">Set budget</button>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Savings rate</h2>
+                        <div class="stat-icon green">％</div>
+                    </div>
+                    <p class="date period-label">–</p>
+                    <h1 class="amount" id="savingsRate">–</h1>
+                    <span class="note" id="savingsNote">Add income to see this.</span>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <h2>Top category</h2>
+                        <div class="stat-icon pink">★</div>
+                    </div>
+                    <p class="date period-label">–</p>
+                    <h1 class="amount" id="topCategory">–</h1>
+                    <span class="note" id="topCategoryNote">No expenses yet.</span>
+                </div>
+
+            </section>
+
+
+            <!-- CHARTS -->
+            <section class="grid-main" id="analytics">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Cash flow</h2>
+                        <select id="transactionChartType">
+                            <option value="area">Area chart</option>
+                            <option value="line">Line chart</option>
+                            <option value="bar">Bar chart</option>
+                        </select>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="transactionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Categories</h2>
+                        <select id="categoryChartType">
+                            <option value="doughnut">Doughnut chart</option>
+                            <option value="pie">Pie chart</option>
+                        </select>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="categoryChart"></canvas>
+                        <p class="chart-empty hidden" id="categoryEmpty">No expenses in this period.</p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- TRANSACTIONS -->
+            <section class="grid-main" id="transactions">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Transactions</h2>
+                        <div class="panel-actions">
+                            <button class="btn btn-ghost btn-small" id="exportButton" type="button">⬇ Export
+                                CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="tx-toolbar">
+                        <input type="search" id="searchInput" placeholder="Search description or category…"
+                            aria-label="Search transactions">
+                        <select id="typeFilter" aria-label="Filter by type">
+                            <option value="all">All types</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expenses</option>
+                        </select>
+                    </div>
+
+                    <p class="tx-count" id="resultCount"></p>
+
+                    <div id="transactionList">
+                        <p class="empty-list">Loading transactions...</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h2>Add a transaction</h2>
+                    </div>
+
+                    <form id="transactionForm">
+
+                        <div class="field">
+                            <label for="transactionDescription">Description</label>
+                            <input type="text" id="transactionDescription" placeholder="e.g. Lunch" maxlength="100"
+                                required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field">
+                                <label for="transactionAmount">Amount</label>
+                                <input type="number" id="transactionAmount" min="0.01" step="0.01" placeholder="0.00"
+                                    required>
+                            </div>
+
+                            <div class="field">
+                                <label for="transactionType">Type</label>
+                                <select id="transactionType" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field">
+                                <label for="transactionCategory">Category</label>
+                                <select id="transactionCategory" required></select>
+                            </div>
+
+                            <div class="field">
+                                <label for="transactionDate">Date</label>
+                                <input type="date" id="transactionDate" required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="transactionAccount">Bank account</label>
+                            <select id="transactionAccount" required>
+                                <option value="">Loading accounts...</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="addTransactionButton" class="btn btn-primary">
+                            Add transaction
+                        </button>
+
+                        <p id="transactionMessage" role="status"></p>
+
+                        <button type="button" id="addAccountShortcut" class="btn btn-ghost hidden">
+                            + Add a bank account
+                        </button>
+
+                    </form>
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+
+    <!-- ACCOUNTS DIALOG -->
+    <dialog id="accountsDialog">
+        <h2>Bank accounts</h2>
+        <p class="dialog-sub">Add the accounts you want to track.</p>
+
+        <ul class="account-list" id="accountsList"></ul>
+
+        <form id="accountForm">
+            <div class="field">
+                <label for="accountName">Account name</label>
+                <input type="text" id="accountName" maxlength="40" placeholder="e.g. Main account" required>
+            </div>
+
+            <div class="field">
+                <label for="accountBalance">Current balance</label>
+                <input type="number" id="accountBalance" step="0.01" placeholder="0.00">
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-ghost" id="closeAccounts">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveAccount">Add account</button>
+            </div>
+        </form>
+    </dialog>
+
+
+    <!-- BUDGET DIALOG -->
+    <dialog id="budgetDialog">
+        <h2>Monthly budget</h2>
+        <p class="dialog-sub">The most you want to spend each calendar month, across all accounts.</p>
+
+        <form id="budgetForm">
+            <div class="field">
+                <label for="budgetInput">Budget amount</label>
+                <input type="number" id="budgetInput" min="1" step="0.01" placeholder="e.g. 1500" required>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-danger" id="clearBudget">Remove</button>
+                <button type="button" class="btn btn-ghost" id="closeBudget">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </dialog>
+
+
+    <!-- EDIT TRANSACTION DIALOG -->
+    <dialog id="editDialog">
+        <h2>Edit transaction</h2>
+        <p class="dialog-sub">Account balances are adjusted automatically.</p>
+
+        <form id="editForm">
+            <div class="field">
+                <label for="editDescription">Description</label>
+                <input type="text" id="editDescription" maxlength="100" required>
+            </div>
+
+            <div class="form-row">
+                <div class="field">
+                    <label for="editAmount">Amount</label>
+                    <input type="number" id="editAmount" min="0.01" step="0.01" required>
+                </div>
+
+                <div class="field">
+                    <label for="editType">Type</label>
+                    <select id="editType">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="field">
+                    <label for="editCategory">Category</label>
+                    <select id="editCategory"></select>
+                </div>
+
+                <div class="field">
+                    <label for="editDate">Date</label>
+                    <input type="date" id="editDate" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="editAccount">Bank account</label>
+                <select id="editAccount"></select>
+            </div>
+
+            <div class="dialog-actions">
+                <button type="button" class="btn btn-ghost" id="closeEdit">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="saveEdit">Save changes</button>
+            </div>
+        </form>
+    </dialog>
+
+
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

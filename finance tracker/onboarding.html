@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Vinance</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="onboarding.css">
+</head>
+<body class="onboarding-page">
+
+    <main class="onboarding-container">
+
+        <header class="onboarding-header">
+            <div class="logo">VINANCE.</div>
+            <span id="stepLabel">Getting started</span>
+        </header>
+
+        <section class="onboarding-card">
+
+            <h1>Let's get to know your finances.</h1>
+            <p class="onboarding-subtitle">
+                A few details will help us personalize your experience.
+                You can skip anything and fill it in later.
+            </p>
+
+            <form id="onboardingForm">
+
+                <div class="onboarding-field">
+                    <label for="monthlyIncome">
+                        What's your monthly income?
+                    </label>
+
+                    <div class="income-input">
+                        <input
+                            type="number"
+                            id="monthlyIncome"
+                            min="0"
+                            step="0.01"
+                            placeholder="e.g. 2000"
+                        >
+
+                        <select id="currency">
+                            <option value="EUR">EUR (€)</option>
+                            <option value="RON">RON (lei)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="GBP">GBP (£)</option>
+                        </select>
+                    </div>
+
+                    <small>Optional. You can add this later.</small>
+                    <!-- INITIAL ACCOUNT BALANCE -->
+<div class="onboarding-field">
+    <label for="accountCount">
+        How many accounts do you want to add?
+    </label>
+
+    <input
+        type="number"
+        id="accountCount"
+        min="1"
+        max="10"
+        value="1"
+        required
+    >
+
+    <small>
+        You can add more accounts later.
+    </small>
+</div>
+
+<div id="accountsContainer"></div>
+                </div>
+
+                <div class="onboarding-field">
+                    <label>What do you usually spend money on?</label>
+                    <p>Select as many as you like.</p>
+
+                    <div class="choice-grid">
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Food">
+                            🍔 Food
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Transport">
+                            🚌 Transport
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Entertainment">
+                            🎮 Entertainment
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Shopping">
+                            🛍️ Shopping
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Education">
+                            📚 Education
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Subscriptions">
+                            📱 Subscriptions
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Travel">
+                            ✈️ Travel
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="spending" value="Other">
+                            📦 Other
+                        </label>
+                    </div>
+                </div>
+
+                <div class="onboarding-field">
+                    <label>What are your financial goals?</label>
+
+                    <div class="choice-grid">
+                        <label class="choice">
+                            <input type="checkbox" name="goals" value="Save money">
+                            💰 Save money
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="goals" value="Control spending">
+                            📊 Control spending
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="goals" value="Build a budget">
+                            🧾 Build a budget
+                        </label>
+
+                        <label class="choice">
+                            <input type="checkbox" name="goals" value="Track expenses">
+                            📈 Track expenses
+                        </label>
+                    </div>
+                </div>
+
+                <p id="onboardingMessage" role="alert"></p>
+
+                <div class="onboarding-actions">
+                    <button type="button" id="skipOnboarding">
+                        Skip for now
+                    </button>
+
+                    <button type="submit" id="finishOnboarding">
+                        Finish setup →
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+
+    <script type="module" src="onboarding.js"></script>
+</body>
+</html>
